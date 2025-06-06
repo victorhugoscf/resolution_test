@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.section')
 
 @section('title', 'Cadastro de clientes')
 
@@ -127,5 +127,3 @@
         })()
       });
     </script>
-</html>
-

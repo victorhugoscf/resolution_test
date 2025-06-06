@@ -18,14 +18,14 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::with(['client', 'user', 'products','payment'])->latest()->paginate(10);
-        return view('sales.list', compact('sales'));
+        return view('sales.List', compact('sales'));
     }
 
     public function create()
     {
         $clients = Client::all();
         $products = Product::all();
-        return view('sales.create', compact('clients', 'products'), ['sale' => new Sale()]);
+        return view('sales.Create', compact('clients', 'products'), ['sale' => new Sale()]);
     }
 
     public function store(Request $request)
@@ -132,7 +132,7 @@ class SaleController extends Controller
         $sale = Sale::with(['saleItems', 'payment'])->findOrFail($id);
         $clients = Client::all();
         $products = Product::all();
-        return view('sales.edit', compact('sale', 'clients', 'products'));
+        return view('sales.Edit', compact('sale', 'clients', 'products'));
     }
 
    public function update(Request $request, $id)

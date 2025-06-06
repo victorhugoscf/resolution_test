@@ -15,7 +15,8 @@ class Sale extends Model
         'total_amount',
         'status',
         'sale_date',
-    ];   protected $casts = [
+    ];   
+    protected $casts = [
         'sale_date' => 'datetime',
         'due_date' => 'date',
     ];
@@ -42,11 +43,12 @@ class Sale extends Model
 
     public function products()
     {
-      return $this->belongsToMany(Product::class, 'sale_items') 
-        ->withPivot('quantity', 'product_id');
+        return $this->belongsToMany(Product::class, 'sale_items') 
+                    ->withPivot('quantity', 'product_id', 'unit_price', 'subtotal')
+                    ->withTimestamps();
     }
 
-    public function installmentSales()
+    public function installments()
     {
         return $this->hasMany(InstallmentSale::class, 'sale_id');
     }

@@ -5,7 +5,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sistema')</title>
+    <title>@yield('title', 'Gestão de Vendas')</title>
+         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -40,7 +41,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="#">Sistema</a>
+            <a class="navbar-brand fw-bold text-white" href="#">
+                <i class="bi bi-shop me-3"></i>Gestão de Vendas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -102,9 +104,11 @@
     </div>
 
     <footer class="text-center mt-5">
-        <p>&copy; {{ date('Y') }} Sistema - Todos os direitos reservados.</p>
+        <p>&copy; {{ date('Y') }} Gestão de Vendas - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @yield('scripts')
 </body>
 </html>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.Section')
 
 @section('title', 'Lista de Produtos')
 
@@ -70,8 +70,8 @@
     $(document).ready(function() {
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
         if (!csrfToken) {
-            console.error('CSRF token não encontrado na meta tag. Verifique layouts.app.');
-            alert('Erro de configuração: Token CSRF não encontrado. Recarregue a página.');
+            console.error('CSRF token não encontrado.');
+            alert('Erro de configuração: Token CSRF não encontrado.');
         } else {
             $.ajaxSetup({
                 headers: {
