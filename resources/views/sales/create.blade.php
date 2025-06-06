@@ -5,15 +5,28 @@
 @section('content')
 <div class="container mt-5">
 
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold text-primary mb-4">📝 Nova Venda</h2>
-            <a href="{{ route('sales.list') }}" class="btn btn-secondary btn-lg shadow-sm">
-                <i class="bi bi-arrow-left me-1"></i> Voltar
-            </a>
-        </div>
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+        <div class="flex-grow-1">{{ session('success') }}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+    @endif
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold text-primary">
+        <i class="bi bi-cart-plus-fill fs-8 me-2"></i> Nova Venda
+    </h1>
+   <a href="{{ route('sales.list') }}" class="btn btn-secondary shadow-sm d-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+</div>
+
+
     <form action="{{ route('sales.list') }}" method="POST" class="needs-validation" novalidate>
         @csrf
+
+        {{-- Cliente --}}
         <div class="mb-4">
             <label for="client_id" class="form-label fw-semibold">Cliente</label>
             <select name="client_id" id="client_id" class="form-select select2 @error('client_id') is-invalid @enderror" required>
@@ -28,17 +41,19 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        {{-- Produtos --}}
         <div class="mb-4">
             <label class="form-label fw-semibold">Produtos</label>
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle" id="sale-items-table">
-                    <thead class="table-primary">
+            <div class="table-responsive shadow-sm rounded border">
+                <table class="table table-bordered align-middle text-center mb-0">
+                    <thead class="table-primary text-center">
                         <tr>
-                            <th scope="col">Produto</th>
-                            <th scope="col" style="width:100px;">Quantidade</th>
-                            <th scope="col" style="width:130px;">Preço Unitário</th>
-                            <th scope="col" style="width:130px;">Subtotal</th>
-                            <th scope="col" style="width:110px;">Ação</th>
+                            <th>Produto</th>
+                            <th style="width:100px;">Qtd</th>
+                            <th style="width:130px;">Preço Unit.</th>
+                            <th style="width:130px;">Subtotal</th>
+                            <th style="width:110px;">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,17 +66,11 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td>
-                                <input type="number" name="sale_items[0][quantity]" class="form-control quantity" value="1" min="1" required>
-                            </td>
-                            <td>
-                                <input type="text" name="sale_items[0][unit_price]" class="form-control unit-price" value="0.00" readonly>
-                            </td>
-                            <td>
-                                <input type="text" name="sale_items[0][subtotal]" class="form-control subtotal" value="0.00" readonly>
-                            </td>
+                            <td><input type="number" name="sale_items[0][quantity]" class="form-control quantity" value="1" min="1" required></td>
+                            <td><input type="text" name="sale_items[0][unit_price]" class="form-control unit-price" value="0.00" readonly></td>
+                            <td><input type="text" name="sale_items[0][subtotal]" class="form-control subtotal" value="0.00" readonly></td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-outline-danger remove-item" title="Remover produto">
+                                <button type="button" class="btn btn-sm btn-outline-danger remove-item shadow-sm">
                                     <i class="bi bi-trash"></i> Remover
                                 </button>
                             </td>
@@ -69,15 +78,15 @@
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-primary btn-sm mt-2" id="add-item">
-                <i class="bi bi-plus-circle"></i> Adicionar Produto
-            </button>
         </div>
 
+        {{-- Total --}}
         <div class="mb-4">
             <label for="total_amount" class="form-label fw-semibold">Valor Total</label>
             <input type="text" name="sales[0][total_amount]" id="total_amount" class="form-control form-control-lg fw-bold text-primary" value="0.00" readonly>
         </div>
+
+        {{-- Status --}}
         <div class="mb-4">
             <label for="status" class="form-label fw-semibold">Status</label>
             <select name="sales[0][status]" id="status" class="form-select @error('sales.0.status') is-invalid @enderror" required>
@@ -90,10 +99,11 @@
             @enderror
         </div>
 
+        {{-- Pagamento --}}
         <div class="mb-4">
             <label class="form-label fw-semibold">Formas de Pagamento</label>
             <div id="payments-container">
-                <div class="payment-row mb-3 p-3 border rounded bg-light">
+                <div class="payment-row mb-3 p-3 border rounded bg-light shadow-sm">
                     <div class="row g-3 align-items-center">
                         <div class="col-md-3">
                             <select name="payments[0][method]" class="form-select payment-method" required>
@@ -115,17 +125,17 @@
                                 @endfor
                             </select>
                         </div>
-                        <div class="col-md-4 d-flex justify-content-end align-items-center">
-                            <span class="installment-value text-muted me-2" style="display: none;">Parcela: R$ 0,00</span>
-                            <button type="button" class="btn btn-outline-danger btn-sm remove-payment" title="Remover forma de pagamento">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center gap-2">
+                            <span class="installment-value text-muted" style="display: none;">Parcela: R$ 0,00</span>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-payment shadow-sm">
                                 <i class="bi bi-trash"></i> Remover
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary btn-sm" id="add-payment">
-                <i class="bi bi-plus-circle"></i> Adicionar Forma de Pagamento
+            <button type="button" class="btn btn-secondary btn-sm shadow-sm d-flex align-items-center gap-1" id="add-payment">
+                <i class="bi bi-plus-circle fs-5"></i> Adicionar Forma de Pagamento
             </button>
 
             <div class="mt-3">
@@ -137,12 +147,15 @@
             @enderror
         </div>
 
-        <div class="d-flex gap-2">
+        {{-- Botões --}}
+        <div class="d-flex gap-3">
             <button type="submit" class="btn btn-primary px-4 fw-semibold shadow-sm">Salvar</button>
             <a href="{{ route('sales.list') }}" class="btn btn-outline-secondary px-4 fw-semibold">Cancelar</a>
         </div>
     </form>
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

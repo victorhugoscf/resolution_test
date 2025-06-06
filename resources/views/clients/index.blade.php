@@ -1,5 +1,3 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 @extends('layouts.app')
 
 @section('title', 'Vendas')
@@ -7,36 +5,43 @@
 @section('content')
 
 <div class="container mt-5">
+    {{-- Alerta de sucesso --}}
     @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i>
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-    </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
     @endif
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="fw-bold text-primary">📋 Lista de Clientes</h1>
-            <a href="{{  route('clients.create') }}" class="btn btn-primary shadow-sm">
-                <i class="bi bi-plus-lg me-1"></i> Novo Cliente
-            </a>
-        </div>
-    
+    {{-- Cabeçalho com título e botão --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+       
+        <h1 class="fw-bold text-primary">
+             <i class="bi bi-people-fill fs-8 me-2"></i>Lista de Clientes
+        </h1>
 
+        <a href="{{ route('clients.create') }}" class="btn btn-primary btn-lg px-4 shadow">
+            <i class="bi bi-plus-lg me-1"></i> Novo Cliente
+        </a>
+    </div>
+
+    {{-- Formulário de busca --}}
     <form id="clientSearchForm" method="GET" action="{{ route('clients.index') }}" class="mb-4">
         <div class="input-group shadow-sm rounded-pill">
-            <span class="input-group-text bg-light">
+            <span class="input-group-text bg-light border-0 rounded-start-pill">
                 <i class="bi bi-search text-muted"></i>
             </span>
             <input type="text" name="search" class="form-control border-0" placeholder="Buscar por nome, email ou documento..." value="{{ request('search') }}">
-            <button class="btn btn-primary rounded-pill" type="submit">
+            <button class="btn btn-primary rounded-pill px-4" type="submit">
                 Buscar
             </button>
         </div>
     </form>
 
+    {{-- Tabela de clientes --}}
     <div class="table-responsive shadow-sm rounded">
-        <table class="table table-hover align-middle text-center">
+        <table class="table table-hover align-middle text-center mb-0">
             <thead class="table-primary">
                 <tr>
                     <th>Nome</th>
@@ -44,6 +49,7 @@
                     <th>Telefone</th>
                     <th>Documento</th>
                     <th>Endereço</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +58,12 @@
         </table>
     </div>
 
+    {{-- Paginação --}}
     <div class="d-flex justify-content-center mt-4">
         {{ $clients->links('pagination::bootstrap-5') }}
     </div>
-
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(function () {
