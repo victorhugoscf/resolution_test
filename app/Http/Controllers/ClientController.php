@@ -2,81 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Services\ClientService;
+use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-	public function index()
+	protected $clientService;
+
+	public function __construct(ClientService $clientService)
 	{
-		$query = Client::query();
+		$this->clientService = $clientService;
+	}
 
-		if (request()->has('search') && request()->filled('search')) 
+	public function index(Request $request)
+	{
+		$clients = $this->clientService->getClients($request);
+
+		if ($request->ajax()) 
 		{
-			$search = request('search');
-			$query->where(function ($q) use ($search) 
-			{
-				$q->where('name', 'like', "%$search%")
-				->orWhere('email', 'like', "%$search%")
-				->orWhere('document', 'like', "%$search%");
-			});
-		}
-
-		$clients = $query->latest()->paginate(10);
-
-		if (request()->ajax()) {
 			return response()->view('clients._Table', compact('clients'));
 		}
+
 		return view('clients.ClientList', compact('clients'));
 	}
-	
+
 	public function create()
 	{
-		return view('clients.NewClient', ['client' => new Client()]);
+		$client = $this->clientService->createClient();
+		return view('clients.NewClient', compact('client'));
 	}
 
-	public function store(Request $request)
+	public function store(StoreClientRequest $request)
 	{
-		$request->validate([
-			'name' => 'required|string|max:255',
-			'email' => 'nullable|email|unique:clients,email',
-			'phone' => 'nullable|string|max:20',
-			'document' => 'nullable|string|max:20|unique:clients,document',
-			'address' => 'nullable|string|max:500',
-		]);
-
-		Client::create($request->all());
-
-		return redirect()->route('clients.index')->with('success', 'Cliente cadastrado com sucesso!');
+		$this->clientService->storeClient($request->validated());
+		return redirect()->route('clients.index')
+										 ->with('success', 'Cliente cadastrado com sucesso!');
 	}
 
 	public function edit($id)
 	{
-		$client = Client::findOrFail($id);
+		$client = $this->clientService->findClient($id);
 		return view('clients.form', compact('client'));
 	}
 
-	public function update(Request $request, $id)
+	public function update(UpdateClientRequest $request, $id)
 	{
-		$client = Client::findOrFail($id);
-
-		$request->validate([
-			'name' => 'required|string|max:255',
-			'email' => 'nullable|email|unique:clients,email,' . $client->id,
-			'phone' => 'nullable|string|max:20',
-			'document' => 'nullable|string|max:20|unique:clients,document,' . $client->id,
-			'address' => 'nullable|string|max:500',
-		]);
-
-		$client->update($request->all());
-
-		return redirect()->route('clients.list')->with('success', 'Cliente atualizado com sucesso!');
+		$this->clientService->updateClient($request->validated(), $id);
+		return redirect()->route('clients.list')
+										 ->with('success', 'Cliente atualizado com sucesso!');
 	}
 
 	public function destroy($id)
 	{
-		$client = Client::findOrFail($id);
-		$client->delete();
-		return redirect()->route('clients.list')->with('success', 'Cliente excluído com sucesso!');
+		$this->clientService->deleteClient($id);
+		return redirect()->route('clients.list')
+										 ->with('success', 'Cliente excluído com sucesso!');
 	}
 }

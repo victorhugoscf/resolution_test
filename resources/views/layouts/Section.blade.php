@@ -23,6 +23,15 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding-left: 12px;
         }
+        html, body {
+            height: 100%;
+             margin: 0;
+             display: flex;
+             flex-direction: column;
+        }
+        .container {
+             flex: 1;
+        }
         footer {
             background: #212529;
             color: #adb5bd;

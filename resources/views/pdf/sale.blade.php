@@ -95,20 +95,20 @@
                     <td>{{ ucfirst($payment->method) }}</td>
                     <td>R$ {{ number_format($payment->total_amount, 2, ',', '.') }}</td>
                 </tr>
-                @if (str_contains(strtolower($payment->method), 'credit') && $sale->installments->isNotEmpty())
+                @if (str_contains(strtolower($payment->method), 'credit') && $sale->installmentSales->isNotEmpty())
                     <tr>
                         <td colspan="2">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Nº Parcela</th>
-                                        <th>Valor</th>
+                                        <th>Valor</th>@ 
                                         <th>Vencimento</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sale->installments as $installment)
+                                    @foreach ($sale->installmentSales as $installment)
                                         <tr>
                                             <td>{{ $installment->installment_number }}</td>
                                             <td>R$ {{ number_format($installment->amount, 2, ',', '.') }}</td>
