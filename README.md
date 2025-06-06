@@ -19,19 +19,14 @@ Git (para controle de versão)
  ``` 
 git clone https://github.com/victorhugoscf/resolution_test
 cd resolution_test
- ``
+ ```
 
 2. Instalar dependências PHP
  ``` 
 composer install
-  ``
+  ```
 
 3. Configurar o ambiente
-Copie o arquivo .env de exemplo:
-
- ```
-cp .env.example .env
- ``
 
 Edite as variáveis de ambiente no arquivo .env:
 
@@ -42,31 +37,31 @@ DB_PORT=3306
 DB_DATABASE=nome_do_banco
 DB_USERNAME=usuario
 DB_PASSWORD=senha
-  ``
+  ```
 
 4. Gerar chave da aplicação
  ```
 php artisan key:generate
- ``
+```
 
 5. Migrar e popular o banco
  ```
 php artisan migrate
 php artisan db:seed
-  ``
+  ```
 
 6. Instalar dependência de PDF
  ```
 composer require barryvdh/laravel-dompdf
- `` 
+ ``` 
 
 7. Iniciar o servidor
-```bash
+```
 php artisan serve
-``
-
+```
+```
 Acesse: http://localhost:8000
-
+```
 #⚙️ Funcionalidades
 📋 Listagem de Vendas: veja todas as vendas com detalhes do cliente, produto e pagamento
 
@@ -78,7 +73,7 @@ Acesse: http://localhost:8000
 
 #🧪 Uso
 Acessar a aplicação
-Abra o navegador em: http://localhost:8000
+Abra o navegador em:``` http://localhost:8000```
 
 Criar uma nova venda
 Clique em "Nova Venda"
