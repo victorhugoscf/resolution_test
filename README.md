@@ -1,88 +1,92 @@
-Projeto de Gestão de Vendas
-Uma aplicação em Laravel para gerenciar vendas, clientes, produtos, pagamentos e parcelas, com geração de PDF para detalhes das vendas.
-Pré-requisitos
+📊 Projeto de Gestão de Vendas
+Aplicação em Laravel para gerenciamento de vendas, clientes, produtos, pagamentos e parcelas, com geração de PDF contendo os detalhes das vendas.
 
-PHP: 8.1 ou superior
-Composer: Gerenciador de dependências para PHP
-Laravel: 10.x ou versão compatível
-MySQL: Ou outro banco de dados suportado pelo Laravel
-Node.js & NPM: Para assets de frontend / Javascript/Jquery
-Git: Para controle de versão
+✅ Pré-requisitos
+PHP 8.1 ou superior
 
-Instalação
+Composer (Gerenciador de dependências PHP)
 
-Clonar o Repositório
-git clone <https://github.com/victorhugoscf/resolution_test>
+Laravel 10.x
+
+MySQL ou outro banco suportado
+
+Node.js & NPM (para assets frontend / JS)
+
+Git (para controle de versão)
+
+🚀 Instalação
+1. Clonar o repositório
+'''bash
+git clone https://github.com/victorhugoscf/resolution_test
 cd resolution_test
+'''
 
+2. Instalar dependências PHP
+'''bash
+composer install
+'''
 
-Instalar Dependências
+3. Configurar o ambiente
+Copie o arquivo .env de exemplo:
 
-Instale as dependências PHP:composer install
+'''bash
+cp .env.example .env
+'''
 
-Configurar o Ambiente
+Edite as variáveis de ambiente no arquivo .env:
 
-Copie o arquivo de exemplo .env:cp .env.example .env
-
-
-Edite o arquivo .env para configurar o banco de dados e outras opções:
-
+'''env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nome_do_seu_banco
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
+DB_DATABASE=nome_do_banco
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+'''
 
-
-Gerar a Chave da Aplicação
+4. Gerar chave da aplicação
+'''bash
 php artisan key:generate
+'''
 
+5. Migrar e popular o banco
+'''bash
+php artisan migrate
+php artisan db:seed
+'''
 
-Executar as Migrações
+6. Instalar dependência de PDF
+'''bash
+composer require barryvdh/laravel-dompdf
+'''
 
-Crie e popule as tabelas do banco de dados: php artisan migrate
-Popule o banco de dados com ajuda dos seeders: php artisan db:seed
+7. Iniciar o servidor
+'''bash
+php artisan serve
+'''
 
+Acesse: http://localhost:8000
 
-Instalar Dependência de PDF
+⚙️ Funcionalidades
+📋 Listagem de Vendas: veja todas as vendas com detalhes do cliente, produto e pagamento
 
-Instale o pacote barryvdh/laravel-dompdf para geração de PDF:composer require barryvdh/laravel-dompdf
+➕ Criar Venda: cadastre novas vendas com produtos e métodos de pagamento
 
+📄 Download em PDF: gere um PDF com dados da venda, cliente, produtos e parcelas
 
-Iniciar o Servidor
+🔍 Pesquisa: filtre vendas por cliente, vendedor ou produto
 
-Inicie o servidor de desenvolvimento do Laravel: php artisan serve
+🧪 Uso
+Acessar a aplicação
+Abra o navegador em: http://localhost:8000
 
+Criar uma nova venda
+Clique em "Nova Venda"
 
-Acesse a aplicação em: http://localhost:8000
-
-
-Funcionalidades
-
-Listagem de Vendas: Visualize todas as vendas com detalhes de cliente, produto e pagamento.
-Criar Venda: Adicione novas vendas com produtos e métodos de pagamento.
-Download de PDF: Gere e baixe um PDF com detalhes da venda, incluindo informações do cliente, produtos, pagamentos e parcelas (para pagamentos com cartão de crédito).
-Pesquisa: Filtre vendas por cliente, vendedor ou produto.
-
-Uso
-
-Acessar a Aplicação
-
-Abra o navegador e vá para http://localhost:8000.
-Navegue até a página "Listagem de Vendas" para ver as vendas existentes.
-
-
-Criar uma Venda
-
-Clique em "Nova Venda" para adicionar uma nova venda.
-Preencha os detalhes do cliente, produtos e pagamento.
-
+Preencha os dados do cliente, produtos e pagamento
 
 Baixar PDF
+Na listagem de vendas, clique no ícone de download
 
-Na tabela de vendas, clique no botão de download para uma venda.
-Um arquivo PDF será baixado, mostrando detalhes do cliente, produtos, métodos de pagamento e parcelas.
-
-
+Um PDF será gerado com todas as informações detalhadas
 
