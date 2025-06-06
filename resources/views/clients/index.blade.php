@@ -16,32 +16,27 @@
 
     {{-- Cabeçalho com título e botão --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-       
         <h1 class="fw-bold text-primary">
              <i class="bi bi-people-fill fs-8 me-2"></i>Lista de Clientes
         </h1>
-
         <a href="{{ route('clients.create') }}" class="btn btn-primary btn-lg px-4 shadow">
             <i class="bi bi-plus-lg me-1"></i> Novo Cliente
         </a>
     </div>
 
-    {{-- Formulário de busca --}}
-    <form id="clientSearchForm" method="GET" action="{{ route('clients.index') }}" class="mb-4">
+    {{-- Campo de busca --}}
+    <div class="mb-4">
         <div class="input-group shadow-sm rounded-pill">
             <span class="input-group-text bg-light border-0 rounded-start-pill">
                 <i class="bi bi-search text-muted"></i>
             </span>
-            <input type="text" name="search" class="form-control border-0" placeholder="Buscar por nome, email ou documento..." value="{{ request('search') }}">
-            <button class="btn btn-primary rounded-pill px-4" type="submit">
-                Buscar
-            </button>
+            <input type="text" id="searchInput" class="form-control border-0" placeholder="Buscar por nome, email ou documento..." value="{{ request('search') }}">
         </div>
-    </form>
+    </div>
 
     {{-- Tabela de clientes --}}
     <div class="table-responsive shadow-sm rounded">
-        <table class="table table-hover align-middle text-center mb-0">
+        <table class="table table-hover align-middle text-center mb-0" id="clientsTable">
             <thead class="table-primary">
                 <tr>
                     <th>Nome</th>
@@ -66,21 +61,19 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(function () {
-        $('#clientSearchForm').on('submit', function (e) {
-            e.preventDefault(); 
-            let url = $(this).attr('action');
-            let query = $(this).serialize();
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function() {
+            var value = $(this).val();
             $.ajax({
-                url: url + '?' + query,
+                url: '{{ route("clients.index") }}',
                 type: 'GET',
-                success: function (data) {
-                    $('tbody').fadeOut(150, function () {
-                     $(this).html(data).fadeIn(150);
-                });
-
+                data: { search: value },
+                success: function(data) {
+                    $('tbody').fadeOut(150, function() {
+                        $(this).html(data).fadeIn(150);
+                    });
                 },
-                error: function () {
+                error: function() {
                     alert('Erro ao buscar os clientes.');
                 }
             });

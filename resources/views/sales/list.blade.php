@@ -5,7 +5,6 @@
 @section('content')
 <body>
     <div class="container mt-5">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="fw-bold text-primary">
                 <i class="bi bi-cart-fill fs-8 me-2"></i> Listagem de Vendas
@@ -22,8 +21,17 @@
             </div>
         @endif
 
+        <div class="mb-4">
+            <div class="input-group shadow-sm">
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control border-start-0" id="searchInput" placeholder="Pesquisar por cliente, vendedor ou produto...">
+            </div>
+        </div>
+
         <div class="table-responsive shadow-sm rounded">
-            <table class="table table-bordered table-hover align-middle text-center">
+            <table class="table table-bordered table-hover align-middle text-center" id="salesTable">
                 <thead class="table-primary text-uppercase">
                     <tr>
                         <th>ID</th>
@@ -86,8 +94,18 @@
                 {{ $sales->links('pagination::bootstrap-5') }}
             </div>
         </div>
-
     </div>
-</body>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('#salesTable tbody tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+</body>
 @endsection
