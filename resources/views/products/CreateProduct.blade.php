@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.section')
 
 @section('title', 'Cadastro de Produto')
 
@@ -106,4 +106,3 @@
         })()
     });
 </script>
-</html>

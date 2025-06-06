@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.Section')
 
 @section('title', 'Vendas realizadas')
 
@@ -74,7 +74,7 @@
                                 <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-outline-warning me-1" title="Editar">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-outline-success me-1" title="Baixar">
+                                <a href="{{ route('sales.download-pdf', $sale->id) }}" class="btn btn-sm btn-outline-success me-1" title="Baixar PDF">
                                     <i class="bi bi-download"></i>
                                 </a>
                                 <form action="{{ route('sales.destroy', $sale->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Tem certeza que deseja excluir esta venda?')">

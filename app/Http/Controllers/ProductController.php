@@ -20,7 +20,6 @@ class ProductController extends Controller
 
         $products = $query->latest()->paginate(10);
 
-        // Format price for display
         $products->getCollection()->transform(function ($product) {
             $product->price_formatted = number_format($product->price, 2, ',', '.');
             return $product;
@@ -33,7 +32,7 @@ class ProductController extends Controller
             ], 200);
         }
 
-        return view('products.index', compact('products'));
+        return view('products.ProductList', compact('products'));
     }
 
     public function create()
@@ -81,8 +80,6 @@ class ProductController extends Controller
 {
     try {
         $product = Product::findOrFail($id);
-
-        // Verifica se o produto está vinculado a alguma venda
         if ($product->saleItems()->exists()) {
             $message = 'Não é possível excluir o produto, pois ele está vinculado a uma ou mais vendas.';
             
@@ -90,7 +87,7 @@ class ProductController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => $message
-                ], 400); // Bad Request
+                ], 400);
             }
 
             return redirect()->route('products.list')->with('error', $message);

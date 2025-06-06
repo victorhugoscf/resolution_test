@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.Section')
 
 @section('title', 'Editar Venda')
 
