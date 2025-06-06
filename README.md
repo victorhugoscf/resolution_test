@@ -16,54 +16,54 @@ Git (para controle de versão)
 
 #🚀 Instalação
 1. Clonar o repositório
- ``` ``bash
+ ``` 
 git clone https://github.com/victorhugoscf/resolution_test
 cd resolution_test
- ``` ``
+ ``
 
 2. Instalar dependências PHP
- ``` ``bash
+ ``` 
 composer install
- ``` ``
+  ``
 
 3. Configurar o ambiente
 Copie o arquivo .env de exemplo:
 
- ``` ``bash
+ ```
 cp .env.example .env
- ``` ``
+ ``
 
 Edite as variáveis de ambiente no arquivo .env:
 
- ``` ``env
+ ``` 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=nome_do_banco
 DB_USERNAME=usuario
 DB_PASSWORD=senha
- ``` ``
+  ``
 
 4. Gerar chave da aplicação
- ``` ``bash
+ ```
 php artisan key:generate
- ``` ``
+ ``
 
 5. Migrar e popular o banco
- ```bash
+ ```
 php artisan migrate
 php artisan db:seed
   ``
 
 6. Instalar dependência de PDF
- ```bash
+ ```
 composer require barryvdh/laravel-dompdf
  `` 
 
 7. Iniciar o servidor
-'''bash
+```bash
 php artisan serve
-'''
+``
 
 Acesse: http://localhost:8000
 
