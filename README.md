@@ -1,7 +1,7 @@
-#📊 Projeto de Gestão de Vendas
+📊 Projeto de Gestão de Vendas
 Aplicação em Laravel para gerenciamento de vendas, clientes, produtos, pagamentos e parcelas, com geração de PDF contendo os detalhes das vendas.
 
-#✅ Pré-requisitos
+✅ Pré-requisitos
 PHP 8.1 ou superior
 
 Composer (Gerenciador de dependências PHP)
@@ -14,7 +14,7 @@ Node.js & NPM (para assets frontend / JS)
 
 Git (para controle de versão)
 
-#🚀 Instalação
+🚀 Instalação
 1. Clonar o repositório
  ``` 
 git clone https://github.com/victorhugoscf/resolution_test
@@ -62,7 +62,7 @@ php artisan serve
 ```
 Acesse: http://localhost:8000
 ```
-#⚙️ Funcionalidades
+⚙️ Funcionalidades
 📋 Listagem de Vendas: veja todas as vendas com detalhes do cliente, produto e pagamento
 
 ➕ Criar Venda: cadastre novas vendas com produtos e métodos de pagamento
@@ -71,7 +71,7 @@ Acesse: http://localhost:8000
 
 🔍 Pesquisa: filtre vendas por cliente, vendedor ou produto
 
-#🧪 Uso
+🧪 Uso
 Acessar a aplicação
 Abra o navegador em:``` http://localhost:8000```
 
@@ -80,7 +80,7 @@ Clique em "Nova Venda"
 
 Preencha os dados do cliente, produtos e pagamento
 
-#Baixar PDF
+Baixar PDF
 Na listagem de vendas, clique no ícone de download
 
 Um PDF será gerado com todas as informações detalhadas
