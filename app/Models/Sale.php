@@ -48,7 +48,7 @@ class Sale extends Model
                     ->withTimestamps();
     }
 
-    public function installments()
+    public function installmentSales()
     {
         return $this->hasMany(InstallmentSale::class, 'sale_id');
     }
