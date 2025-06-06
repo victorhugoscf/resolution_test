@@ -10,7 +10,7 @@ class DownPdfController extends Controller
 {
     public function downloadPdf($id)
     {
-        $sale = Sale::with(['client', 'products', 'payment', 'installments'])->findOrFail($id);
+        $sale = Sale::with(['client', 'products', 'payment', 'installmentSales'])->findOrFail($id);
         $pdf = Pdf::loadView('pdf.sale', [
             'sale' => $sale,
         ]);
