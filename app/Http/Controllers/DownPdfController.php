@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\SalePdfService;
+use Illuminate\Http\Response;
 
 class DownPdfController extends Controller
 {
-    public function downloadPdf($id)
-    {
-        $sale = Sale::with(['client', 'products', 'payment', 'installmentSales'])->findOrFail($id);
-        $pdf = Pdf::loadView('pdf.sale', [
-            'sale' => $sale,
-        ]);
+	protected $salePdfService;
 
-        return $pdf->download('venda_' . $sale->id . '.pdf');
-    }
+	public function __construct(SalePdfService $salePdfService)
+	{
+		$this->salePdfService = $salePdfService;
+	}
+
+	/**
+	 * Faz o download do PDF da venda.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function downloadPdf($id): Response
+	{
+		return $this->salePdfService->downloadSalePdf((int) $id);
+	}
 }

@@ -248,6 +248,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
 $(document).ready(function () {
     let itemIndex = {{ count($sale->saleItems) ?: 1 }};
     let paymentIndex = {{ count($sale->payment) ?: 1 }};
@@ -315,10 +318,10 @@ $(document).ready(function () {
                     <input type="number" name="sale_items[${itemIndex}][quantity]" class="form-control quantity" value="1" min="1" required>
                 </td>
                 <td>
-                    <input type="text" name="sale_items[${itemIndex}][unit_price]" class="form-control unit-price" value="0.00" readonly>
+                    <input type="text" name="sale_items[${itemIndex}][unit_price]" class="form-control unit-price" value="0,00" readonly>
                 </td>
                 <td>
-                    <input type="text" name="sale_items[${itemIndex}][subtotal]" class="form-control subtotal" value="0.00" readonly>
+                    <input type="text" name="sale_items[${itemIndex}][subtotal]" class="form-control subtotal" value="0,00" readonly>
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-sm btn-outline-danger remove-item" title="Remover produto">
@@ -356,7 +359,7 @@ $(document).ready(function () {
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" name="payments[${paymentIndex}][total_amount]" class="form-control payment-amount" value="0.00" required>
+                        <input type="text" name="payments[${paymentIndex}][total_amount]" class="form-control payment-amount" value="0,00" required>
                     </div>
                     <div class="col-md-2 installment-container" style="display: none;">
                         <select name="payments[${paymentIndex}][installments]" class="form-select installment-select">
@@ -426,7 +429,17 @@ $(document).ready(function () {
             installmentValue.hide();
         }
     });
+
+    $('form').on('submit', function() {
+        $('.unit-price, .subtotal, #total_amount, .payment-amount').each(function() {
+            let texto = $(this).val();
+            texto = texto.replace(/\./g, ''); 
+            texto = texto.replace(/,/g, '.');
+            $(this).val(texto);
+        });
+    });
 });
+</script>
 </script>
 @endsection
 

@@ -96,14 +96,13 @@
                     <td>R$ {{ number_format($payment->total_amount, 2, ',', '.') }}</td>
                 </tr>
                 @if (str_contains(strtolower($payment->method), 'credit') && $sale->installmentSales->isNotEmpty())
-
                     <tr>
                         <td colspan="2">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Nº Parcela</th>
-                                        <th>Valor</th>
+                                        <th>Valor</th>@ 
                                         <th>Vencimento</th>
                                         <th>Status</th>
                                     </tr>

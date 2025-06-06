@@ -18,8 +18,8 @@
         <i class="bi bi-cart-plus-fill fs-8 me-2"></i> Nova Venda
     </h1>
    <a href="{{ route('sales.list') }}" class="btn btn-secondary shadow-sm d-flex align-items-center gap-1">
-            <i class="bi bi-arrow-left"></i> Voltar
-        </a>
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
 </div>
 
 
@@ -211,6 +211,7 @@ $(document).ready(function () {
     });
 
     $(document).on('input', '.quantity', calculateTotal);
+
     $('#add-item').on('click', function () {
         const row = `
             <tr class="sale-item-row">
@@ -318,6 +319,15 @@ $(document).ready(function () {
     });
     $(document).on('input', '.payment-amount', calculateRemaining);
 
+    $('form').on('submit', function() {
+        $('.unit-price, .subtotal, #total_amount, .payment-amount').each(function() {
+            let texto = $(this).val() || '';
+            texto = texto.replace(/\./g, '');
+            texto = texto.replace(/,/g, '.');
+            $(this).val(texto);
+        });
+    });
+
     calculateTotal();
     calculateRemaining();
 
@@ -325,5 +335,6 @@ $(document).ready(function () {
         $('.select2').select2();
     }
 });
+
 </script>
 @endsection
