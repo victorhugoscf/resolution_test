@@ -19,7 +19,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Welcome');
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

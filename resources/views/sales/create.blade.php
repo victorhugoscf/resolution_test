@@ -67,8 +67,8 @@
                                 </select>
                             </td>
                             <td><input type="number" name="sale_items[0][quantity]" class="form-control quantity" value="1" min="1" required></td>
-                            <td><input type="text" name="sale_items[0][unit_price]" class="form-control unit-price" value="0.00" readonly></td>
-                            <td><input type="text" name="sale_items[0][subtotal]" class="form-control subtotal" value="0.00" readonly></td>
+                            <td><input type="text" name="sale_items[0][unit_price]" class="form-control unit-price" value="0,00" readonly></td>
+                            <td><input type="text" name="sale_items[0][subtotal]" class="form-control subtotal" value="0,00" readonly></td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-sm btn-outline-danger remove-item shadow-sm">
                                     <i class="bi bi-trash"></i> Remover
@@ -115,7 +115,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" name="payments[0][total_amount]" class="form-control payment-amount" value="0.00" required>
+                            <input type="text" name="payments[0][total_amount]" class="form-control payment-amount" value="0,00" required>
                         </div>
                         <div class="col-md-2 installment-container" style="display: none;">
                             <select name="payments[0][installments]" class="form-select installment-select">

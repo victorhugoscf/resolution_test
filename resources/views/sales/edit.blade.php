@@ -1,4 +1,3 @@
-
 @extends('layouts.Section')
 
 @section('title', 'Editar Venda')

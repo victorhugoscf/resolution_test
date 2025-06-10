@@ -22,7 +22,7 @@ class ClientController extends Controller
 
 		if ($request->ajax()) 
 		{
-			return response()->view('clients._Table', compact('clients'));
+			return response()->view('clients._table', compact('clients'));
 		}
 
 		return view('clients.ClientList', compact('clients'));
